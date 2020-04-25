@@ -6,8 +6,8 @@ interface GeneralLayoutProps {
 
 const GeneralLayout = ({ children }: GeneralLayoutProps) => {
   return (
-    <div className={"outer-module"}>
-      <div className={"inner-module"}>{children}</div>
+    <div className={"outer-container"}>
+      <div className={"inner-container"}>{children}</div>
     </div>
   );
 };

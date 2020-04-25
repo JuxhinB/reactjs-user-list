@@ -21,7 +21,7 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
-    "format-all": "npx prettier --write 'src/**/*'",
+    "format": "npx prettier --write 'src/**/*'",
     "clean-npm": "rm -rf node_modules && rm -rf package-lock.json"
   },
   "eslintConfig": {

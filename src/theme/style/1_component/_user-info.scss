@@ -1,0 +1,42 @@
+.user-info-wrap {
+  position: relative;
+  max-width: 375px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 0 15px 15px;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  overflow: hidden;
+
+  .user-info {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: inherit;
+    padding: 16px;
+    font-family: "Helvetica", serif;
+    transition: all ease 0.3s;
+    border-bottom: 1px solid #d4d4d4;
+
+    &:hover {
+      background-color: white;
+      cursor: pointer;
+      box-shadow: 10px 10px 20px -4px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+
+    &-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      margin-right: 24px;
+    }
+
+    &-name {
+      margin: 0;
+    }
+  }
+}

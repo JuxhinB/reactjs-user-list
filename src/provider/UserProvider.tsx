@@ -22,7 +22,6 @@ export const UserContext = createContext<UserContextTypes>({
 });
 
 function UserProvider({ children }: UserProviderProps) {
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const providerValue = {
@@ -33,17 +32,24 @@ function UserProvider({ children }: UserProviderProps) {
   return (
     <UserContext.Provider value={providerValue}>
       <>
-        {isLoading && <global.Loader/>}
+        {isLoading && <global.Loader />}
         {children}
         <ToastContainer
-          position="top-right"
-          autoClose={4000}
+          position={"top-right"}
+          autoClose={2000}
           hideProgressBar={true}
           newestOnTop={true}
           closeOnClick={false}
           rtl={false}
           draggable={true}
           pauseOnHover={true}
+          style={
+            window.innerWidth < 768
+              ? {
+                  textAlign: "center",
+                }
+              : {}
+          }
         />
       </>
     </UserContext.Provider>

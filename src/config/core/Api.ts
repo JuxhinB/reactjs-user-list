@@ -14,15 +14,14 @@ export async function fetchApi({
   customHeaders,
   ...restProps
 }: FetchApiProps) {
-
   let config = {
     method: method,
     url: `${baseUrl}${url}`,
-    ...data
+    ...data,
   };
 
   const defaultHeaders = {
-    Accept: "application/json"
+    Accept: "application/json",
   };
 
   let jointHeaders = null;
@@ -31,14 +30,14 @@ export async function fetchApi({
     ...defaultHeaders,
     headers: {
       ...customHeaders,
-    }
+    },
   };
 
   try {
     return axios({
       ...config,
       ...jointHeaders,
-      ...restProps
+      ...restProps,
     });
   } catch (error) {
     return error;

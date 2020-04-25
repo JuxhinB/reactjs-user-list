@@ -1,5 +1,7 @@
 {
-  "LABEL": {},
+  "LABEL": {
+    "users": "Users"
+  },
   "ACTION": {},
   "MESSAGE": {
     "users_fetch_success": "Users loaded successfully!"
