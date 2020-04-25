@@ -1,24 +1,39 @@
-import React, { createContext } from "react";
+import React, { createContext, Dispatch, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import global from "../global";
 
 interface UserProviderProps {
   children: JSX.Element;
 }
-interface IUserContextTypes {}
 
-const USER_CONTEXT_INITIAL_VALUES = {};
+interface UserContextTypes {
+  isLoading: boolean;
+  setIsLoading: Dispatch<boolean>;
+}
 
-export const UserContext = createContext<IUserContextTypes>({
+const USER_CONTEXT_INITIAL_VALUES = {
+  isLoading: false,
+  setIsLoading: (isLoading: boolean) => undefined,
+};
+
+export const UserContext = createContext<UserContextTypes>({
   ...USER_CONTEXT_INITIAL_VALUES,
 });
 
 function UserProvider({ children }: UserProviderProps) {
-  const providerValue = {};
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const providerValue = {
+    isLoading,
+    setIsLoading,
+  };
 
   return (
     <UserContext.Provider value={providerValue}>
       <>
+        {isLoading && <global.Loader/>}
         {children}
         <ToastContainer
           position="top-right"

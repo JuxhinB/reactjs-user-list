@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { GeneralLayout } from "../../../layouts";
 import { fetchApi, handleResponse } from "../../../config/core";
 import { AxiosResponse } from "axios";
 import { UserResponse, UserInfo } from "../../../Types";
 import { toast } from "react-toastify";
 import strLng from "../../../config/localization/strLng";
+import { UserContext } from "../../../provider/UserProvider";
 
 function UserListScreen() {
+
+  const { setIsLoading } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserInfo[] | null>(null);
   const [pages, setPages] = useState<number | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
     fetchUsers();
   }, []);
 
@@ -42,7 +49,8 @@ function UserListScreen() {
 
   return (
     <GeneralLayout>
-      <div className={""}></div>
+      <div className={""}>
+      </div>
     </GeneralLayout>
   );
 }

@@ -1,15 +1,28 @@
-.loader {
-  box-sizing: border-box;
+.loader-wrap {
+  position: sticky;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
   display: flex;
-  flex: 0 1 auto;
-  flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 25%;
-  max-width: 25%;
-  height: 200px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: white;
+
+  .loader {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 25%;
+    max-width: 25%;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @-webkit-keyframes ball-scale-multiple {
