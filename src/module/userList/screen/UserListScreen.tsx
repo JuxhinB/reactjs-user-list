@@ -8,19 +8,38 @@ import strLng from "../../../config/localization/strLng";
 import { UserContext } from "../../../provider/UserProvider";
 import comp from "../component";
 
+let scrolledToBottomTimer: any = 0;
+
 function UserListScreen(): JSX.Element {
   const { setIsLoading } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserInfo[] | null>(null);
   const [pages, setPages] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    // setIsLoading(true);
-    // setTimeout(() => {
-    //   setIsLoading(false);
-    // }, 3000);
-    fetchUsers();
+    document.addEventListener("scroll", handleScroll);
+    return function cleanUp() {
+      document.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+    fetchUsers(`?page=${currentPage}`);
+  }, []);
+
+  function handleScroll(event: Event) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (scrolledToBottomTimer) clearTimeout(scrolledToBottomTimer);
+      scrolledToBottomTimer = setTimeout(() => {
+        console.log("At The Bottom"); //Add in what you want here
+      }, 500);
+    }
+  }
 
   function fetchUsers(page = "") {
     fetchApi({
