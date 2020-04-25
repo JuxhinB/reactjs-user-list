@@ -2,4 +2,6 @@
  * This is the main style file which the projects loads.
  * It is made of 2 imports: 1- The optimized one's and raw one's.
  */
-@import "./includes.scss";
+@import "0_base/_main_base";
+@import "1_component/_main_component";
+@import "2_container/_main_container";
