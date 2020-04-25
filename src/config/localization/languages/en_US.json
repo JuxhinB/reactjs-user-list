@@ -1,8 +1,11 @@
 {
   "LABEL": {},
   "ACTION": {},
-  "MESSAGE": {},
+  "MESSAGE": {
+    "users_fetch_success": "Users loaded successfully!"
+  },
   "ERROR": {
-    "error": "Error"
+    "error": "Error",
+    "something_went_wrong": "Something went wrong, please try again!"
   }
 }

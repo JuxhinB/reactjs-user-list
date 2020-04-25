@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import { UserListScreen } from "../container/userList";
+import { UserListScreen } from "../module/userList/screen";
 
 function GuestNavigation() {
   return (

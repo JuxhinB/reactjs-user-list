@@ -1,4 +1,6 @@
 import React, { createContext } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface UserProviderProps {
   children: JSX.Element;
@@ -16,7 +18,19 @@ function UserProvider({ children }: UserProviderProps) {
 
   return (
     <UserContext.Provider value={providerValue}>
-      {children}
+      <>
+        {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={true}
+          newestOnTop={true}
+          closeOnClick={false}
+          rtl={false}
+          draggable={true}
+          pauseOnHover={true}
+        />
+      </>
     </UserContext.Provider>
   );
 }
