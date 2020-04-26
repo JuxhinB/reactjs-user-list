@@ -2,7 +2,9 @@
   "LABEL": {
     "users": "Users"
   },
-  "ACTION": {},
+  "ACTION": {
+    "load_more": "Load More"
+  },
   "MESSAGE": {
     "users_fetch_success": "Users loaded successfully!"
   },

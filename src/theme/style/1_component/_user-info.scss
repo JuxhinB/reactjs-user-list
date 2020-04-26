@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  margin: 0 15px 15px;
+  margin: 0 15px 50px;
   border-radius: 5px;
   background-color: #f2f2f2;
   overflow: hidden;
@@ -55,4 +55,13 @@
       margin: 0;
     }
   }
+}
+
+.bottom-action {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  left: 0;
+  bottom: 10px;
 }

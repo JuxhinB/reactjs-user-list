@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import strLng from "../../../config/localization/strLng";
 import { UserContext } from "../../../provider/UserProvider";
 import comp from "../component";
+import LoadMoreButton from "../component/LoadMoreButton";
 
 let scrolledToBottomTimer: any = 0;
 
@@ -65,16 +66,25 @@ function UserListScreen(): JSX.Element {
       });
   }
 
+  function handleLoadMore() {}
+
   return (
     <GeneralLayout>
       <>
         <p className={"section-title"}>{strLng.LABEL.users}</p>
         {users ? (
-          <div className={"user-info-wrap"}>
-            {users.map(user => (
-              <comp.User key={`${user.id}`} {...user} />
-            ))}
-          </div>
+          <>
+            <div className={"user-info-wrap"}>
+              {users.map(user => (
+                <comp.User key={`${user.id}`} {...user} />
+              ))}
+            </div>
+            <comp.LoadMoreButton
+              users={users}
+              shouldResize={shouldResize}
+              loadMore={handleLoadMore}
+            />
+          </>
         ) : (
           <div />
         )}
@@ -84,3 +94,10 @@ function UserListScreen(): JSX.Element {
 }
 
 export default UserListScreen;
+
+function shouldResize(): boolean {
+  if (window.innerHeight >= document.documentElement.offsetHeight) {
+    return true;
+  }
+  return false;
+}
