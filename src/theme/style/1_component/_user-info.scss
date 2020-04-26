@@ -9,6 +9,15 @@
   border-radius: 5px;
   background-color: #f2f2f2;
   overflow: hidden;
+  transition: all ease 0.3s;
+
+  @media screen and (min-width: 768px) {
+    max-width: 1200px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+    flex-grow: unset;
+  }
 
   .user-info {
     position: relative;
@@ -18,8 +27,15 @@
     background-color: inherit;
     padding: 16px;
     font-family: "Helvetica", serif;
-    transition: all ease 0.3s;
     border-bottom: 1px solid #d4d4d4;
+    transition: all ease 0.3s;
+
+    @media screen and (min-width: 768px) {
+      width: 50%;
+      &:nth-child(odd) {
+        border-right: 1px solid #d4d4d4;
+      }
+    }
 
     &:hover {
       background-color: white;

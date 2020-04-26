@@ -18,6 +18,7 @@ function UserListScreen(): JSX.Element {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
+    fetchUsers(`?page=${currentPage}`);
     document.addEventListener("scroll", handleScroll);
     return function cleanUp() {
       document.removeEventListener("scroll", handleScroll);
@@ -25,12 +26,12 @@ function UserListScreen(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-    fetchUsers(`?page=${currentPage}`);
-  }, []);
+    if (users && users.length) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    }
+  }, [users]);
 
   function handleScroll(event: Event) {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
@@ -42,6 +43,7 @@ function UserListScreen(): JSX.Element {
   }
 
   function fetchUsers(page = "") {
+    setIsLoading(true);
     fetchApi({
       url: `/users${page}`,
     })
