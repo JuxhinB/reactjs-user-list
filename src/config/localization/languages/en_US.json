@@ -6,7 +6,8 @@
     "load_more": "Load More"
   },
   "MESSAGE": {
-    "users_fetch_success": "Users loaded successfully!"
+    "users_fetch_success": "Users loaded successfully!",
+    "no_more_users_to_load": "No more users to load!"
   },
   "ERROR": {
     "error": "Error",

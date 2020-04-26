@@ -7,7 +7,9 @@ import { toast } from "react-toastify";
 import strLng from "../../../config/localization/strLng";
 import { UserContext } from "../../../provider/UserProvider";
 import comp from "../component";
-import LoadMoreButton from "../component/LoadMoreButton";
+
+let pagesDOM: number = 1;
+let currentPageDOM: number = 1;
 
 let scrolledToBottomTimer: any = 0;
 
@@ -15,44 +17,36 @@ function UserListScreen(): JSX.Element {
   const { setIsLoading } = useContext(UserContext);
 
   const [users, setUsers] = useState<UserInfo[] | null>(null);
-  const [pages, setPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
-    fetchUsers(`?page=${currentPage}`);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
     document.addEventListener("scroll", handleScroll);
     return function cleanUp() {
       document.removeEventListener("scroll", handleScroll);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (users && users.length) {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
-    }
-  }, [users]);
+    let tempUsers = users ? users : [];
+    fetchUsers(`?page=${currentPage}`, tempUsers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentPage]);
 
-  function handleScroll(event: Event) {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      if (scrolledToBottomTimer) clearTimeout(scrolledToBottomTimer);
-      scrolledToBottomTimer = setTimeout(() => {
-        console.log("At The Bottom"); //Add in what you want here
-      }, 500);
-    }
-  }
-
-  function fetchUsers(page = "") {
-    setIsLoading(true);
+  function fetchUsers(page = "", prevUsers: any = []) {
+    if (setIsLoading) setIsLoading(true);
     fetchApi({
       url: `/users${page}`,
     })
       .then((r: AxiosResponse<UserResponse>) => {
         console.log(r);
         if (handleResponse(r) === true) {
-          setUsers(r.data.data);
-          setPages(r.data.total_pages);
+          setUsers(prevUsers.concat(r.data.data));
+          pagesDOM = r.data.total_pages;
         } else {
           toast.warn(strLng.ERROR.something_went_wrong);
         }
@@ -63,10 +57,27 @@ function UserListScreen(): JSX.Element {
       })
       .finally(() => {
         toast.info(strLng.MESSAGE.users_fetch_success);
+        setIsLoading(false);
       });
   }
 
-  function handleLoadMore() {}
+  function handleScroll() {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+      if (scrolledToBottomTimer) clearTimeout(scrolledToBottomTimer);
+      scrolledToBottomTimer = setTimeout(() => {
+        handleLoadMore();
+      }, 1000);
+    }
+  }
+
+  function handleLoadMore() {
+    if (currentPageDOM < pagesDOM) {
+      currentPageDOM++;
+      setCurrentPage(currentPageDOM);
+    } else {
+      toast.info(strLng.MESSAGE.no_more_users_to_load);
+    }
+  }
 
   return (
     <GeneralLayout>
@@ -74,9 +85,12 @@ function UserListScreen(): JSX.Element {
         <p className={"section-title"}>{strLng.LABEL.users}</p>
         {users ? (
           <>
-            <div className={"user-info-wrap"}>
-              {users.map(user => (
-                <comp.User key={`${user.id}`} {...user} />
+            <div
+              style={!shouldResize() ? { marginBottom: 15 } : {}}
+              className={"user-info-wrap"}
+            >
+              {users.map((user, index) => (
+                <comp.User key={`${user.id}-${index}`} {...user} />
               ))}
             </div>
             <comp.LoadMoreButton

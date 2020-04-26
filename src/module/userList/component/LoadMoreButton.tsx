@@ -21,6 +21,7 @@ function LoadMoreButton({
     } else {
       setShouldRender(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
 
   return shouldRender ? (
